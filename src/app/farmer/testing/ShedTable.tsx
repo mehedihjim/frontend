@@ -28,7 +28,7 @@ const ShedTable: React.FC<ShedTableProps> = ({
 
   if (sheds.length === 0) {
     return (
-      <div className="border-gray-200 rounded-xl border bg-white shadow-sm">
+      <div className="rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
         <div className="p-12 text-center">
           <div className="bg-gray-100 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
             <div className="bg-gray-300 h-8 w-8 rounded"></div>
@@ -45,7 +45,7 @@ const ShedTable: React.FC<ShedTableProps> = ({
   }
 
   return (
-    <div className="border-gray-200 rounded-xl border bg-white shadow-sm">
+    <div className="rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
       {/* Table Header */}
       <div className="border-gray-200 border-b px-6 py-4">
         <h3 className="text-gray-900 text-lg font-medium">
