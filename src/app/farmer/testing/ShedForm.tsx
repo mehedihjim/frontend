@@ -156,6 +156,7 @@ const ShedForm: React.FC<ShedFormProps> = ({
     if (errors[field]) {
       setErrors((prev: any) => ({ ...prev, [field]: "" }));
     }
+    // console.log(value, field);
   };
 
   return (

@@ -65,9 +65,6 @@ const ShedTable: React.FC<ShedTableProps> = ({
                 Location
               </th>
               <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                Status
-              </th>
-              <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Created
               </th>
               <th className="text-gray-500 px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">
@@ -99,20 +96,16 @@ const ShedTable: React.FC<ShedTableProps> = ({
                   </div>
                   <div className="text-gray-500 text-sm">{shed.division}</div>
                 </td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <span
-                    className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                      shed.status === "active"
-                        ? "bg-emerald-100 text-emerald-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {shed.status}
-                  </span>
-                </td>
                 <td className="text-gray-500 whitespace-nowrap px-6 py-4 text-sm">
-                  {new Date(shed.created_at).toLocaleDateString()}
+                  {shed.created_at
+                    ? new Date(shed.created_at).toLocaleDateString("en-GB", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })
+                    : "N/A"}
                 </td>
+
                 <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                   <div className="flex justify-end space-x-2">
                     <button

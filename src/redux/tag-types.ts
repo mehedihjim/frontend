@@ -22,6 +22,7 @@ export enum tagTypes {
 }
 
 export const tagTypesList = [
+  tagTypes.shed,
   tagTypes.sportsItem,
   tagTypes.admin,
   tagTypes.user,
