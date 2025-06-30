@@ -6,100 +6,88 @@ import ShedTable from "./ShedTable";
 import ShedViewModal from "./ShedViewModal";
 import ShedForm from "./ShedForm";
 import DeleteConfirmModal from "./DeleteConfirmModa";
+import {
+  useGetShedsQuery,
+  useCreateShedMutation,
+  useUpdateShedMutation,
+  useDeleteShedMutation,
+} from "@/redux/api/shedApi";
 
-// Mock data for demonstration
-const mockSheds = [
-  {
-    id: 1,
-    name: "SH-001",
-    farmer: "John Doe",
-    farmer_id: 1,
-    division: "Dhaka",
-    division_id: 1,
-    district: "Dhaka",
-    district_id: 1,
-    district_name: "Dhaka",
-    upzilla: "Dhanmondi",
-    upzilla_id: 1,
-    union: "Ward 15",
-    union_id: 1,
-    address: "123 Main Street, Dhanmondi",
-    created_at: "2024-01-15",
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "SH-002",
-    farmer: "Jane Smith",
-    farmer_id: 2,
-    division: "Chittagong",
-    division_id: 2,
-    district: "Chittagong",
-    district_id: 2,
-    district_name: "Chittagong",
-    upzilla: "Kotwali",
-    upzilla_id: 2,
-    union: "Ward 5",
-    union_id: 2,
-    address: "456 Harbor Road, Kotwali",
-    created_at: "2024-01-10",
-    status: "active",
-  },
-];
+interface Shed {
+  id: number;
+  name: string;
+  farmer: string;
+  farmer_id: number;
+  division: string;
+  division_id: number;
+  district: string;
+  district_id: number;
+  district_name: string;
+  upzilla: string;
+  upzilla_id: number;
+  union: string;
+  union_id: number;
+  address: string;
+  created_at: string;
+  status: string;
+}
 
 const ShedManagement: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
-  const [editingShed, setEditingShed] = useState<any>(null);
-  const [viewingShed, setViewingShed] = useState<any>(null);
-  const [deletingShed, setDeletingShed] = useState<any>(null);
+  const [editingShed, setEditingShed] = useState<Shed | null>(null);
+  const [viewingShed, setViewingShed] = useState<Shed | null>(null);
+  const [deletingShed, setDeletingShed] = useState<Shed | null>(null);
+  const [deleteShed] = useDeleteShedMutation();
   const [searchTerm, setSearchTerm] = useState("");
-  const [sheds, setSheds] = useState(mockSheds);
+  const { data: shedsData, isLoading, error, refetch } = useGetShedsQuery({});
+  const sheds: Shed[] = shedsData?.data || [];
+  const [createShed] = useCreateShedMutation();
+  const [updateShed] = useUpdateShedMutation();
 
   const handleCreate = () => {
     setEditingShed(null);
     setShowForm(true);
   };
 
-  const handleEdit = (shed: any) => {
+  const handleEdit = (shed: Shed) => {
     setEditingShed(shed);
     setShowForm(true);
   };
 
-  const handleView = (shed: any) => {
+  const handleView = (shed: Shed) => {
     setViewingShed(shed);
   };
 
-  const handleDelete = (shed: any) => {
+  const handleDelete = (shed: Shed) => {
     setDeletingShed(shed);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (deletingShed) {
-      setSheds((prev) => prev.filter((shed) => shed.id !== deletingShed.id));
-      setDeletingShed(null);
+      try {
+        await deleteShed(deletingShed.id).unwrap();
+        refetch();
+      } catch (error) {
+        console.error("Failed to delete shed:", error);
+      } finally {
+        setDeletingShed(null);
+      }
     }
   };
 
-  const handleFormSubmit = (data: any) => {
-    if (editingShed) {
-      // Update existing shed
-      setSheds((prev) =>
-        prev.map((shed) =>
-          shed.id === editingShed.id ? { ...shed, ...data } : shed,
-        ),
-      );
-    } else {
-      // Create new shed
-      const newShed = {
-        ...data,
-        id: Math.max(...sheds.map((s) => s.id)) + 1,
-        created_at: new Date().toISOString().split("T")[0],
-        status: "active",
-      };
-      setSheds((prev) => [...prev, newShed]);
+  const handleFormSubmit = async (data: Partial<Shed>) => {
+    try {
+      if (editingShed) {
+        await updateShed({ data, shed_id: editingShed.id }).unwrap();
+      } else {
+        await createShed(data).unwrap();
+      }
+      refetch();
+      setShowForm(false);
+      setEditingShed(null);
+    } catch (error) {
+      console.error("Shed submission error:", error);
     }
-    setShowForm(false);
-    setEditingShed(null);
   };
 
   const filteredSheds = sheds.filter(
@@ -124,7 +112,7 @@ const ShedManagement: React.FC = () => {
               </p>
             </div>
             <div className="flex space-x-3">
-              <button className="text-gray-700 hover:bg-gray-50 border-gray-100 inline-flex items-center rounded-lg border bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:shadow-none">
+              <button className="text-gray-700 hover:bg-gray-50 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:bg-white/10 dark:text-white">
                 <Download className="mr-2 h-4 w-4" />
                 Export
               </button>
@@ -154,11 +142,11 @@ const ShedManagement: React.FC = () => {
                     placeholder="Search sheds, farmers, or locations..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border-gray-300 w-full rounded-lg border py-2 pl-10 pr-4 focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                    className="border-gray-300 text-gray-900 dark:placeholder-gray-400 w-full rounded-lg bg-white py-3 pl-10 pr-4 shadow-sm transition-colors duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:bg-white/10 dark:text-white"
                   />
                 </div>
               </div>
-              <button className="text-gray-700 hover:bg-gray-50 border-gray-300 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium transition-colors duration-200">
+              <button className="text-gray-700 hover:bg-gray-50 border-gray-100 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:bg-white/10 dark:text-white">
                 <Filter className="mr-2 h-4 w-4" />
                 Filters
               </button>
@@ -166,7 +154,7 @@ const ShedManagement: React.FC = () => {
 
             {/* Stats Cards */}
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-blue-100 p-2">
                     <div className="h-6 w-6 rounded bg-blue-600"></div>
@@ -181,7 +169,7 @@ const ShedManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-emerald-100 p-2">
                     <div className="h-6 w-6 rounded bg-emerald-600"></div>
@@ -196,7 +184,7 @@ const ShedManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-orange-100 p-2">
                     <div className="h-6 w-6 rounded bg-orange-600"></div>
@@ -211,7 +199,7 @@ const ShedManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-purple-100 p-2">
                     <div className="h-6 w-6 rounded bg-purple-600"></div>
