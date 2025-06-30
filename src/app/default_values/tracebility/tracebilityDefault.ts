@@ -1,0 +1,41 @@
+// Default value object for Zod validation
+const tracebilityDefaultValues = (data: any) => {
+  return {
+    sprayedDisinfectants: data?.sprayedDisinfectants || "",
+    bleachingCleaned: data?.bleachingCleaned || "",
+    isFumigation: data?.isFumigation || "",
+    isBufferZone: data?.isBufferZone || "",
+    isFootBaths: data?.isFootBaths || "",
+    entrySpary: data?.entrySpary || "",
+    isDeadAnimal: data?.isDeadAnimal || "",
+    companyName: data?.companyName || "",
+    isGovt: data?.isGovt || "",
+    safeWater: data?.safeWater || "",
+    foodCompanyName: data?.foodCompanyName || "",
+    isWaterTest: data?.isWaterTest || "",
+    waterTestMethod: data?.waterTestMethod || "",
+    isPreBiotic: data?.isPreBiotic || "",
+    probioticsDays: data?.probioticsDays || "",
+    isWithdrwalFollow: data?.isWithdrwalFollow || "",
+    antibioticsDays: data?.antibioticsDays || "",
+    doctorAdvice: data?.doctorAdvice || "",
+    advicerType: data?.advicerType || "",
+    dlsRegistered: data?.dlsRegistered || "",
+    dlsRegiNo: data?.dlsRegiNo || "",
+    isCertified: data?.isCertified || "",
+    wasteRemoval: data?.wasteRemoval || "",
+    is40_42_days: data?.is40_42_days || "",
+    isGrowth_chart_used: data?.isGrowth_chart_used || "",
+    growthWeekOne: data?.growthWeekOne || "",
+    growthWeekTwo: data?.growthWeekTwo || "",
+    growthWeekThree: data?.growthWeekThree || "",
+    growthWeekFour: data?.growthWeekFour || "",
+    growthWeekFive: data?.growthWeekFive || "",
+    growthWeekSix: data?.growthWeekSix || "",
+    growthWeekSeven: data?.growthWeekSeven || "",
+    growthWeekEight: data?.growthWeekEight || "",
+    growthWeekNine: data?.growthWeekNine || "",
+  };
+};
+
+export default tracebilityDefaultValues;
