@@ -3,15 +3,14 @@ import { baseApi } from "./baseApi";
 
 export const shedApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    // Create New User
+    // Create Shed
     createShed: build.mutation({
       query: (data) => ({
         url: `/sheds`,
         method: "POST",
-        contentType: "application/json",
-        data: data,
+        data,
       }),
-      invalidatesTags: [{ type: tagTypes.user, id: "CURRENT" }],
+      invalidatesTags: [tagTypes.shed],
     }),
 
     // Get All Sheds
@@ -20,6 +19,7 @@ export const shedApi = baseApi.injectEndpoints({
         url: `/sheds`,
         method: "GET",
       }),
+      providesTags: [tagTypes.shed],
     }),
 
     // Get Shed List by Farmer ID
@@ -35,9 +35,9 @@ export const shedApi = baseApi.injectEndpoints({
       query: ({ data, shed_id }) => ({
         url: `/sheds/${shed_id}`,
         method: "PUT",
-        contentType: "application/json",
-        data: data,
+        data,
       }),
+      invalidatesTags: [tagTypes.shed],
     }),
 
     // Delete Shed
@@ -46,6 +46,7 @@ export const shedApi = baseApi.injectEndpoints({
         url: `/sheds/${shed_id}`,
         method: "DELETE",
       }),
+      invalidatesTags: [tagTypes.shed],
     }),
   }),
 });

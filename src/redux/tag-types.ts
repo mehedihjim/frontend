@@ -1,4 +1,5 @@
 export enum tagTypes {
+  shed = "shed",
   sportsItem = "sports-item",
   admin = "admin",
   user = "user",

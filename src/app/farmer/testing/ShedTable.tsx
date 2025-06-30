@@ -45,9 +45,9 @@ const ShedTable: React.FC<ShedTableProps> = ({
   }
 
   return (
-    <div className="rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
+    <div className="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
       {/* Table Header */}
-      <div className="border-gray-200 border-b px-6 py-4">
+      <div className="px-6 py-4 shadow-sm">
         <h3 className="text-gray-900 text-lg font-medium">
           Sheds ({sheds.length})
         </h3>
@@ -56,13 +56,10 @@ const ShedTable: React.FC<ShedTableProps> = ({
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gray-50 border-gray-200 border-b">
+          <thead className="bg-gray-50">
             <tr>
               <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Shed ID
-              </th>
-              <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                Farmer
               </th>
               <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Location
@@ -78,13 +75,13 @@ const ShedTable: React.FC<ShedTableProps> = ({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-gray-200 divide-y bg-white">
+          <tbody className="divide-gray-200 divide-y bg-white dark:bg-white/10 dark:text-white/80 ">
             {currentSheds.map((shed) => (
               <tr
                 key={shed.id}
                 className="hover:bg-gray-50 transition-colors duration-150"
               >
-                <td className="whitespace-nowrap px-6 py-4">
+                <td className="overflow-hidden whitespace-nowrap px-6 py-4">
                   <div className="flex items-center">
                     <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100">
                       <span className="text-sm font-medium text-blue-600">
@@ -95,9 +92,6 @@ const ShedTable: React.FC<ShedTableProps> = ({
                       {shed.name}
                     </div>
                   </div>
-                </td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  <div className="text-gray-900 text-sm">{shed.farmer}</div>
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="text-gray-900 text-sm">

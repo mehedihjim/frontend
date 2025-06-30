@@ -118,7 +118,7 @@ const ShedManagement: React.FC = () => {
               </button>
               <button
                 onClick={handleCreate}
-                className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-blue-700"
+                className="inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-red-900"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Shed
@@ -142,7 +142,7 @@ const ShedManagement: React.FC = () => {
                     placeholder="Search sheds, farmers, or locations..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border-gray-300 text-gray-900 dark:placeholder-gray-400 w-full rounded-lg bg-white py-3 pl-10 pr-4 shadow-sm transition-colors duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:bg-white/10 dark:text-white"
+                    className="border-gray-300 text-gray-900 dark:placeholder-gray-400 w-full rounded-lg bg-white py-3 pl-10 pr-4 shadow-inner transition-colors duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:bg-white/10 dark:text-white"
                   />
                 </div>
               </div>
