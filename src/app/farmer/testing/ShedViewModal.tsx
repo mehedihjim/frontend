@@ -103,48 +103,10 @@ const ShedViewModal: React.FC<ShedViewModalProps> = ({ shed, onClose }) => {
               <h4 className="text-gray-900 border-b border-slate-300 pb-2 text-sm font-semibold uppercase tracking-wider dark:border-slate-600">
                 Complete Address
               </h4>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-gray-900">
+              <div className="bg-gray-50 rounded-lg p-1">
+                <blockquote className="text-gray-900">
                   {shed.address || "No specific address provided"}
-                </p>
-              </div>
-            </div>
-
-            {/* Status & Date */}
-            <div className="space-y-4">
-              <h4 className="text-gray-900 border-b border-slate-300 pb-2 text-sm font-semibold uppercase tracking-wider dark:border-slate-600">
-                Status Information
-              </h4>
-              <div>
-                <p className="text-gray-600 mb-2 text-sm">Current Status</p>
-                <span
-                  className={`inline-flex rounded-full px-3 py-1 text-sm font-semibold ${
-                    shed.status === "active"
-                      ? "bg-emerald-100 text-emerald-800"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
-                >
-                  {shed.status}
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h4 className="text-gray-900 border-b border-slate-300 pb-2 text-sm font-semibold uppercase tracking-wider dark:border-slate-600">
-                Created Date
-              </h4>
-              <div className="flex items-center">
-                <Calendar className="text-gray-400 mr-3 h-5 w-5" />
-                <div>
-                  <p className="text-gray-600 text-sm">Registration Date</p>
-                  <p className="text-gray-900 font-medium">
-                    {new Date(shed.created_at).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
+                </blockquote>
               </div>
             </div>
           </div>
