@@ -5,7 +5,7 @@ import { Plus, Search, Filter, Download } from "lucide-react";
 import ShedTable from "./ShedTable";
 import ShedViewModal from "./ShedViewModal";
 import ShedForm from "./ShedForm";
-import DeleteConfirmModal from "./DeleteConfirmModa";
+import DeleteConfirmModal from "./DeleteConfirmModal";
 import {
   useGetShedsQuery,
   useCreateShedMutation,
@@ -41,6 +41,8 @@ const ShedManagement: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { data: shedsData, isLoading, error, refetch } = useGetShedsQuery({});
   const sheds: Shed[] = shedsData?.data || [];
+  console.log("Sheds data:", sheds);
+
   const [createShed] = useCreateShedMutation();
   const [updateShed] = useUpdateShedMutation();
 
@@ -76,10 +78,12 @@ const ShedManagement: React.FC = () => {
   };
 
   const handleFormSubmit = async (data: Partial<Shed>) => {
+    console.log("Form submitted with data:", data); // Log the form data
     try {
       if (editingShed) {
         await updateShed({ data, shed_id: editingShed.id }).unwrap();
       } else {
+        console.log("Creating new shed");
         await createShed(data).unwrap();
       }
       refetch();

@@ -7,6 +7,7 @@ import { useUpzillaByDistrictIdQuery } from "@/redux/api/addressApi";
 import { useUnionByUpzillaIdQuery } from "@/redux/api/addressApi";
 import { useGetAllFarmersQuery } from "@/redux/api/userApi";
 import type { Farmer, Division, District } from "@/types/shed.type";
+import { useAppSelector } from "@/redux/hooks";
 
 interface ShedFormProps {
   initialData?: any;
@@ -19,6 +20,8 @@ const ShedForm: React.FC<ShedFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
+  const { user } = useAppSelector((state) => state.auth);
+  const isFarmer = user?.user_type === "farmer";
   const [formData, setFormData] = useState({
     farmer_id: "",
     name: "",
@@ -47,6 +50,15 @@ const ShedForm: React.FC<ShedFormProps> = ({
       });
     }
   }, [initialData]);
+
+  useEffect(() => {
+    if (isFarmer && user?.id) {
+      setFormData((prev) => ({
+        ...prev,
+        farmer_id: user.id.toString(),
+      }));
+    }
+  }, [isFarmer, user?.id]);
 
   const { data: divisionData, isLoading: isDivLoading } = useDivisionQuery({});
   const { data: allFarmers, isLoading: allFarmersLoading } =
@@ -197,6 +209,7 @@ const ShedForm: React.FC<ShedFormProps> = ({
               className={`w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
                 errors.farmer_id ? "border-red-500" : "border-gray-300"
               }`}
+              disabled={isFarmer}
             >
               <option value="">Select Farmer</option>
               {allFarmers?.data?.map((farmer: any) => (
