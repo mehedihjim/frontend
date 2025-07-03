@@ -172,9 +172,9 @@ const ShedForm: React.FC<ShedFormProps> = ({
   };
 
   return (
-    <div className="border-gray-200 rounded-xl border bg-white shadow-sm">
+    <div className="rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
       {/* Header */}
-      <div className="border-gray-200 flex items-center justify-between border-b p-6">
+      <div className=" flex items-center justify-between p-6 shadow-md">
         <div className="flex items-center space-x-3">
           <button
             onClick={onCancel}
@@ -361,13 +361,13 @@ const ShedForm: React.FC<ShedFormProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="text-gray-700 border-gray-300 hover:bg-gray-50 rounded-lg border bg-white px-4 py-2 transition-colors duration-200"
+            className="text-gray-700 hover:bg-gray-50 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:bg-white/10 dark:text-white"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors duration-200 hover:bg-blue-700"
+            className="inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-red-900"
           >
             <Save className="mr-2 h-4 w-4" />
             {initialData ? "Update Shed" : "Create Shed"}
