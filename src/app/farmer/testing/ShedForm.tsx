@@ -206,7 +206,7 @@ const ShedForm: React.FC<ShedFormProps> = ({
             <select
               value={formData.farmer_id}
               onChange={(e) => handleChange("farmer_id", e.target.value)}
-              className={`w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full rounded-lg border  px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 ${
                 errors.farmer_id ? "border-red-500" : "border-gray-300"
               }`}
               disabled={isFarmer}
@@ -357,7 +357,7 @@ const ShedForm: React.FC<ShedFormProps> = ({
         </div>
 
         {/* Form Actions */}
-        <div className="border-gray-200 mt-8 flex justify-end space-x-3 border-t pt-6">
+        <div className="mt-8 flex justify-end space-x-3 border-t border-blue-300/40 pt-6 dark:border-blue-300/20">
           <button
             type="button"
             onClick={onCancel}
@@ -367,7 +367,7 @@ const ShedForm: React.FC<ShedFormProps> = ({
           </button>
           <button
             type="submit"
-            className="inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-red-900"
+            className="inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-white transition-colors duration-200 hover:bg-red-900"
           >
             <Save className="mr-2 h-4 w-4" />
             {initialData ? "Update Shed" : "Create Shed"}
