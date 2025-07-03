@@ -7,6 +7,7 @@ interface ShedViewModalProps {
 }
 
 const ShedViewModal: React.FC<ShedViewModalProps> = ({ shed, onClose }) => {
+  console.log(shed);
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 p-4">
       <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white text-black shadow-xl dark:bg-[#313942] dark:text-white/80">
@@ -54,7 +55,9 @@ const ShedViewModal: React.FC<ShedViewModalProps> = ({ shed, onClose }) => {
                 <User className="text-gray-400 mr-3 h-5 w-5" />
                 <div>
                   <p className="text-gray-600 text-sm">Farmer Name</p>
-                  <p className="text-gray-900 font-medium">{shed.farmer}</p>
+                  <p className="text-gray-900 font-medium">
+                    {shed.farmer_name}
+                  </p>
                 </div>
               </div>
             </div>
@@ -69,23 +72,27 @@ const ShedViewModal: React.FC<ShedViewModalProps> = ({ shed, onClose }) => {
                   <MapPin className="text-gray-400 mr-3 mt-0.5 h-5 w-5" />
                   <div>
                     <p className="text-gray-600 text-sm">Division</p>
-                    <p className="text-gray-900 font-medium">{shed.division}</p>
+                    <p className="text-gray-900 font-medium">
+                      {shed.division_name}
+                    </p>
                   </div>
                 </div>
                 <div className="ml-8">
                   <p className="text-gray-600 text-sm">District</p>
-                  <p className="text-gray-900 font-medium">{shed.district}</p>
+                  <p className="text-gray-900 font-medium">
+                    {shed.district_name}
+                  </p>
                 </div>
                 <div className="ml-8">
                   <p className="text-gray-600 text-sm">Upzilla</p>
                   <p className="text-gray-900 font-medium">
-                    {shed.upzilla || "N/A"}
+                    {shed.upzilla_name || "N/A"}
                   </p>
                 </div>
                 <div className="ml-8">
                   <p className="text-gray-600 text-sm">Union</p>
                   <p className="text-gray-900 font-medium">
-                    {shed.union || "N/A"}
+                    {shed.union_name || "N/A"}
                   </p>
                 </div>
               </div>
