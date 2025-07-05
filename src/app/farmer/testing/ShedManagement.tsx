@@ -39,6 +39,7 @@ const ShedManagement: React.FC = () => {
   const [deletingShed, setDeletingShed] = useState<Shed | null>(null);
   const [deleteShed] = useDeleteShedMutation();
   const [searchTerm, setSearchTerm] = useState("");
+
   const { data: shedsData, isLoading, error, refetch } = useGetShedsQuery({});
   const sheds: Shed[] = shedsData?.data || [];
   console.log("Sheds data:", sheds);
@@ -94,12 +95,16 @@ const ShedManagement: React.FC = () => {
     }
   };
 
-  const filteredSheds = sheds.filter(
-    (shed) =>
-      shed.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      shed.farmer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      shed.district_name.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredSheds = sheds.filter((shed) => {
+    const matchesSearch =
+      (shed.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (shed.farmer || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (shed.district_name || "")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+    return matchesSearch;
+  });
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -136,8 +141,8 @@ const ShedManagement: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {!showForm ? (
           <>
-            {/* Search and Filters */}
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row">
+            {/* Search and Filter Button Row */}
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="text-gray-400 absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform" />
@@ -150,13 +155,8 @@ const ShedManagement: React.FC = () => {
                   />
                 </div>
               </div>
-              <button className="text-gray-700 hover:bg-gray-50 border-gray-100 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:bg-white/10 dark:text-white">
-                <Filter className="mr-2 h-4 w-4" />
-                Filters
-              </button>
             </div>
-
-            {/* Stats Cards */}
+            {/* =====Stats Cards==== */}
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
               <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
@@ -217,7 +217,6 @@ const ShedManagement: React.FC = () => {
                 </div>
               </div>
             </div>
-
             {/* Sheds Table */}
             <ShedTable
               sheds={filteredSheds}
