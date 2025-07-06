@@ -82,6 +82,11 @@ const ShedForm: React.FC<ShedFormProps> = ({
     skip: !formData.upzilla_id,
   });
 
+  console.log("Available Unions:", unionData?.data);
+  console.log("Auth user from store:", user);
+  console.log("Logged-in user:", user);
+  console.log("All farmers:", allFarmers?.data);
+
   const validateForm = () => {
     const newErrors: any = {};
 
