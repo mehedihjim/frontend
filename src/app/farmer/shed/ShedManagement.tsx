@@ -1,10 +1,7 @@
-// ShedManagement.tsx
 "use client";
 import React, { useState } from "react";
 import { toast } from "sonner";
-// Shed API's
 import { useGetShedsQuery, useDeleteShedMutation } from "@/redux/api/shedApi";
-// Child Components
 import { ShedForm } from "./ShedForm";
 import { ShedTable } from "./ShedTable";
 import { ShedViewModal } from "./ShedViewModal";

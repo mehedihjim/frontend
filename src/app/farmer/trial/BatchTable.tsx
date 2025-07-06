@@ -56,7 +56,7 @@ const BatchTable: React.FC<BatchTableProps> = ({
 
   if (batches.length === 0) {
     return (
-      <div className="border-gray-200 rounded-xl border bg-white shadow-sm">
+      <div className="rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
         <div className="p-12 text-center">
           <div className="bg-gray-100 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
             <div className="bg-gray-300 h-8 w-8 rounded"></div>
@@ -73,9 +73,9 @@ const BatchTable: React.FC<BatchTableProps> = ({
   }
 
   return (
-    <div className="border-gray-200 rounded-xl border bg-white shadow-sm">
+    <div className="overflow-hidden rounded-xl bg-white shadow-sm dark:bg-white/10 dark:text-white/80">
       {/* Table Header */}
-      <div className="border-gray-200 border-b px-6 py-4">
+      <div className="border-b border-blue-300/40 px-6 py-4 dark:border-blue-300/20">
         <h3 className="text-gray-900 text-lg font-medium">
           Batches ({batches.length})
         </h3>
@@ -83,7 +83,7 @@ const BatchTable: React.FC<BatchTableProps> = ({
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full border-collapse divide-y divide-blue-300/40 dark:divide-blue-300/50">
           <thead className="bg-gray-50 border-gray-200 border-b">
             <tr>
               <th className="text-gray-500 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
@@ -112,11 +112,11 @@ const BatchTable: React.FC<BatchTableProps> = ({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-gray-200 divide-y bg-white">
+          <tbody className="bg-white dark:bg-white/10 dark:text-white/80">
             {currentBatches.map((batch) => (
               <tr
                 key={batch.id}
-                className="hover:bg-gray-50 transition-colors duration-150"
+                className="hover:bg-gray-50 transition-colors duration-150 dark:hover:bg-white/20"
               >
                 <td className="whitespace-nowrap px-6 py-4">
                   <div className="flex items-center">

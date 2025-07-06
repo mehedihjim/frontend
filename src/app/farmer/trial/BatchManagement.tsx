@@ -122,11 +122,11 @@ const BatchManagement: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="border-gray-200 border-b bg-white">
+      <div className="rounded-lg bg-white shadow-sm dark:bg-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-6">
             <div>
-              <h1 className="text-gray-900 text-2xl font-bold">
+              <h1 className="text-2xl font-bold text-black/90 dark:text-white/80">
                 Batch Management
               </h1>
               <p className="text-gray-600 mt-1">
@@ -134,13 +134,13 @@ const BatchManagement: React.FC = () => {
               </p>
             </div>
             <div className="flex space-x-3">
-              <button className="border-gray-300 text-gray-700 hover:bg-gray-50 inline-flex items-center rounded-lg border bg-white px-4 py-2 text-sm font-medium transition-colors duration-200">
+              <button className="text-gray-700 hover:bg-gray-50 inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium shadow-sm transition-colors duration-200 dark:bg-white/10 dark:text-white">
                 <Download className="mr-2 h-4 w-4" />
                 Export
               </button>
               <button
                 onClick={handleCreate}
-                className="inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-emerald-700"
+                className="inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors duration-200 hover:bg-red-900"
               >
                 <Plus className="mr-2 h-4 w-4" />
                 Add Batch
@@ -164,19 +164,15 @@ const BatchManagement: React.FC = () => {
                     placeholder="Search batches, sheds, or hen types..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border-gray-300 w-full rounded-lg border py-2 pl-10 pr-4 focus:border-transparent focus:ring-2 focus:ring-emerald-500"
+                    className="border-gray-300 text-gray-900 dark:placeholder-gray-400 w-full rounded-lg bg-white py-3 pl-10 pr-4 shadow-inner transition-colors duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:bg-white/10 dark:text-white"
                   />
                 </div>
               </div>
-              <button className="border-gray-300 text-gray-700 hover:bg-gray-50 inline-flex items-center rounded-lg border bg-white px-4 py-2 text-sm font-medium transition-colors duration-200">
-                <Filter className="mr-2 h-4 w-4" />
-                Filters
-              </button>
             </div>
 
             {/* Stats Cards */}
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-4">
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-emerald-100 p-2">
                     <div className="h-6 w-6 rounded bg-emerald-600"></div>
@@ -191,7 +187,7 @@ const BatchManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-blue-100 p-2">
                     <div className="h-6 w-6 rounded bg-blue-600"></div>
@@ -206,7 +202,7 @@ const BatchManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-orange-100 p-2">
                     <div className="h-6 w-6 rounded bg-orange-600"></div>
@@ -221,7 +217,7 @@ const BatchManagement: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="border-gray-200 rounded-xl border bg-white p-6 shadow-sm">
+              <div className="rounded-xl bg-white p-6 shadow-sm dark:bg-white/10 dark:text-white/80">
                 <div className="flex items-center">
                   <div className="rounded-lg bg-purple-100 p-2">
                     <div className="h-6 w-6 rounded bg-purple-600"></div>
