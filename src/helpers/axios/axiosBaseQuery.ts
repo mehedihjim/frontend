@@ -3,6 +3,7 @@ import type { BaseQueryFn } from "@reduxjs/toolkit/query";
 import type { AxiosError, AxiosRequestConfig } from "axios";
 
 import { instance as axiosInstance } from "./axiosInstance";
+import { getToken } from "@/app/auth/services/auth.service"; // <-- adjust path if needed
 
 export const axiosBaseQuery =
   (
@@ -22,15 +23,24 @@ export const axiosBaseQuery =
   > =>
   async ({ url, method, data, params, contentType }) => {
     try {
+      const token = getToken();
+
+      const headers: Record<string, string> = {
+        "Content-Type": contentType || "application/json",
+      };
+
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
       const result: any = await axiosInstance({
         url: baseUrl + url,
         method,
         data,
         params,
-        headers: {
-          "Content-Type": contentType || "application/json",
-        },
+        headers,
       });
+
       if (result.status !== 200) {
         return {
           error: {

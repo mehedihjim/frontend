@@ -6,7 +6,6 @@ import { useUserLoginMutation } from "@/redux/features/auth/authApi";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { setPermissions } from "@/redux/features/permission/permissionSlice";
 import { useAppDispatch } from "@/redux/hooks";
-import { createCookie } from "@/services/actions/setCookie";
 // import { userLogin } from "@/services/actions/userLogin";
 import { storeToken } from "@/services/auth.services";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,30 +36,16 @@ const LoginForm = () => {
       console.log(res, "this isn");
 
       if (res?.data?.token) {
-        storeToken({ accessToken: res?.data?.token });
+        const a = { ...res.data };
+        const { permissions, roles, ...rest } = a;
+
+        localStorage.setItem("auth_token", res.data.token);
+        localStorage.setItem("permissions", JSON.stringify(permissions));
+        localStorage.setItem("user_data", JSON.stringify(rest));
+        storeToken(res.data.token);
         dispatch(setUser({ user: res.data, token: res.data.token }));
         dispatch(setPermissions(res.data.permissions));
-        const a = { ...res.data };
 
-        const { permissions, roles, ...rest } = a;
-        await createCookie({
-          name: "permissions",
-          value: JSON.stringify(permissions),
-          httpOnly: true,
-          path: "/",
-        });
-        await createCookie({
-          name: "user_data",
-          value: JSON.stringify(rest),
-          httpOnly: true,
-          path: "/",
-        });
-        await createCookie({
-          name: "auth_token",
-          value: res.data.token,
-          httpOnly: true,
-          path: "/",
-        });
         router.push(`/${res.data.user_type}/dashboard`);
         toast.success(res?.message || "Login successful!!");
       } else {

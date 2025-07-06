@@ -29,12 +29,6 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      createCookie({
-        name: "user_data",
-        value: JSON.stringify(user),
-        httpOnly: true,
-        path: "/",
-      });
     },
     removeUser: (state) => {
       state.user = null;
